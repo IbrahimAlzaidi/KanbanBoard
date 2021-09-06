@@ -1,6 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/taskStatistic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="38dp"
+        android:fontFamily="@font/simplyrounded"
+        android:textColor="#3C4EC4"
+        android:textSize="38sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Task Statistics" />
+    <TextView
+        android:id="@+id/newTaskText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/simplyrounded"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@id/taskStatistic"
+        app:layout_constraintTop_toBottomOf="@id/taskStatistic"
+        android:text="New Task" />
+    <TextView
+        android:id="@+id/newTaskNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/simplyrounded"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/newTaskText"
+        app:layout_constraintStart_toStartOf="@id/newTaskText"
+        app:layout_constraintTop_toBottomOf="@id/newTaskText"
+        tools:text="25" />
+    <TextView
+        android:id="@+id/finishedTaskText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/simplyrounded"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/newTaskText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/newTaskText"
+        android:text="Finished Tasks" />
+    <TextView
+        android:id="@+id/finishedTaskNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/simplyrounded"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@id/finishedTaskText"
+        app:layout_constraintStart_toStartOf="@id/finishedTaskText"
+        app:layout_constraintTop_toBottomOf="@id/finishedTaskText"
+        tools:text="65" />
+    <View
+        android:id="@+id/mainLinear"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/viewshape"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/newTaskNumber" />
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/theFirstCardView"
+        android:layout_width="360dp"
+        android:layout_height="250dp"
+        app:cardElevation="1dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="12dp"
+        style="@style/CustomCardViewStyle"
+        app:layout_constraintBottom_toTopOf="@id/theSecondCardView"
+        app:layout_constraintEnd_toEndOf="@id/mainLinear"
+        app:layout_constraintStart_toStartOf="@id/mainLinear"
+        app:layout_constraintTop_toTopOf="@id/mainLinear"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+            android:id="@+id/paiChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="8dp"
+            app:layout_constraintTop_toTopOf="@id/theFirstCardView"
+            app:layout_constraintBottom_toBottomOf="@id/theFirstCardView"
+            app:layout_constraintStart_toStartOf="@id/theFirstCardView"
+            app:layout_constraintEnd_toEndOf="@id/theFirstCardView"/>
+
+
+    </com.google.android.material.card.MaterialCardView>
+    <Spinner
+        android:id="@+id/firstSpinner"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="18dp"
+        android:elevation="2dp"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintTop_toTopOf="@id/theFirstCardView"
+        app:layout_constraintEnd_toEndOf="@id/theFirstCardView"
+        android:background="@drawable/spinnershape" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/theSecondCardView"
+        style="@style/CustomCardViewStyle"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        app:cardElevation="1dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/theFirstCardView"
+        app:layout_constraintStart_toStartOf="@id/theFirstCardView"
+        app:layout_constraintTop_toBottomOf="@id/theFirstCardView">
+        <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+            android:id="@+id/paiChartCard2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="8dp"
+            app:layout_constraintTop_toTopOf="@id/theSecondCardView"
+            app:layout_constraintBottom_toBottomOf="@id/theSecondCardView"
+            app:layout_constraintStart_toStartOf="@id/theSecondCardView"
+            app:layout_constraintEnd_toEndOf="@id/theSecondCardView"/>
+
+    </com.google.android.material.card.MaterialCardView>
+    <Spinner
+        android:id="@+id/secondSpinner"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="18dp"
+        android:elevation="2dp"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintTop_toTopOf="@id/theSecondCardView"
+        app:layout_constraintEnd_toEndOf="@id/theSecondCardView"
+        android:background="@drawable/spinnershape" />
 </androidx.constraintlayout.widget.ConstraintLayout>
