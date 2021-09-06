@@ -35,6 +35,8 @@
             android:background="@drawable/search_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:elevation="4dp"
             app:searchIcon="@drawable/ic_search"
             android:layout_gravity="end"
             android:gravity="center_vertical"
@@ -96,11 +98,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/appCompatButton"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="16dp"
         android:elevation="24dp"
         android:text="+"
+        android:textSize="16sp"
         android:textColor="#3C4EC4"
         android:background="@drawable/search_view"
         app:layout_constraintBottom_toBottomOf="parent"
