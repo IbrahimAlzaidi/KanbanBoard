@@ -1,9 +1,8 @@
 package com.example.kanbanboard.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.kanbanboard.R
 import com.example.kanbanboard.databinding.ActivityHomeBinding
 import com.example.kanbanboard.ui.fragments.HomeFragment
 import com.example.kanbanboard.ui.fragments.ProfileFragment
@@ -24,18 +23,18 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun addNavigationListener() {
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            replaceFragment(
-                when(item.itemId){
-                    R.id.homePage -> fragmentHome
-                    R.id.statisticPage -> fragmentTaskStats
-                    R.id.profilePage -> fragmentProfile
-                    else -> return@setOnItemSelectedListener  false
+        binding.bottomNavigationView.apply {
+            onTabSelected = {
+                when(it.title){
+                    "home" ->{replaceFragment(fragmentHome)}
+                    "statistic" ->{replaceFragment(fragmentTaskStats)}
+                    "about" ->{replaceFragment(fragmentProfile)}
                 }
-            )
-            return@setOnItemSelectedListener true
+            }
         }
     }
+
+
 
     private fun replaceFragment(newFragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
