@@ -38,10 +38,10 @@ class HomeActivity : AppCompatActivity() {
 //        }
 //    }
 
-    private fun replaceFragment(newFragment: Fragment){
+   /* private fun replaceFragment(newFragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(binding.container.id, newFragment)
         transaction.commit()
-    }
+    }*/
 
 }

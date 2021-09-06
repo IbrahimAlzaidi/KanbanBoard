@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Kanban Board</string>
+    <string-array name="task_type">
+        <item>To Do</item>
+        <item>Pending</item>
+        <item>Done</item>
+    </string-array>
 </resources>

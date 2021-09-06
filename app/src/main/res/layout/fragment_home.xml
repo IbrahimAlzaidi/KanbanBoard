@@ -18,7 +18,7 @@
         android:layout_marginTop="8dp"
         android:text="Home"
         android:textColor="#3C4EC4"
-        android:textSize="24sp"
+        android:textSize="38sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,26 +39,23 @@
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:background="#F6F6F6"
+                style="@style/typeTask"
                 android:text="To Do"
-                android:textColor="#110E3B"
-                android:textSize="16sp" />
+                />
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:background="#F6F6F6"
+                style="@style/typeTask"
                 android:text="In progress"
-                android:textColor="#110E3B"
-                android:textSize="16sp" />
+                />
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:background="#F6F6F6"
+                style="@style/typeTask"
                 android:text="Done"
-                android:textColor="#110E3B"
-                android:textSize="16sp" />
+                 />
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 
@@ -66,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
         tools:listitem="@layout/item_task"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -74,6 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
