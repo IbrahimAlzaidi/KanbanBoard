@@ -16,11 +16,33 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Home"
+        android:text="@string/home"
         android:textColor="#3C4EC4"
         android:textSize="38sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.727">
+
+        <SearchView
+            android:id="@+id/search_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="end"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.appcompat.widget.Toolbar>
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
@@ -40,21 +62,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 style="@style/typeTask"
-                android:text="To Do"
+                android:text="@string/to_do"
                 />
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 style="@style/typeTask"
-                android:text="In progress"
+                android:text="@string/in_progress"
                 />
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 style="@style/typeTask"
-                android:text="Done"
+                android:text="@string/done"
                  />
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
