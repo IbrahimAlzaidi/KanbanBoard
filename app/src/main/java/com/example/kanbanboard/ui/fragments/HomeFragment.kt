@@ -12,10 +12,8 @@ import kotlin.collections.ArrayList
 
 
 class HomeFragment:BaseFragment<FragmentHomeBinding>() {
-    private lateinit var item_task :ItemTaskBinding
-    private var array= listOf("1","2","3")
+    private  var item_task :ItemTaskBinding? = null
 
-    private var spinnerAdapter: ArrayAdapter<String>? = null
 
     override val LOG_TAG: String = "Home Fragment"
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
@@ -25,10 +23,10 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
 
     }
     private fun getSpinner(){
-        spinnerAdapter!!.addAll(array)
-        spinnerAdapter = ArrayAdapter(requireContext(),  R.layout.spinner_info ,array )
-        spinnerAdapter!!.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-        item_task.spinnerServices.adapter = spinnerAdapter
+         val array= listOf("1","2","3")
+        val spinnerAdapter = ArrayAdapter(requireContext(), R.layout.spinner_info ,array )
+        spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        item_task?.spinnerTaskType?.adapter = spinnerAdapter
     }
 
     override fun addCallBack() {
