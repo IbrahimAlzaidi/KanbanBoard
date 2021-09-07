@@ -2,14 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:text="Profile"
         android:textColor="#3C4EC4"
         android:textSize="38sp"
@@ -63,89 +64,106 @@
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:padding="24dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5">
-
-        <LinearLayout
+        <HorizontalScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="200dp"
+            android:padding="24dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            android:scrollbars="none">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="250dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardCornerRadius="12dp"
-                >
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="250dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
+                    app:cardCornerRadius="12dp"
+                    android:elevation="24dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Daily Strikes:"
-                        android:paddingStart="24dp"
-                        android:paddingTop="24dp"
-                        android:textSize="24sp"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/black"/>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Daily Strikes:"
+                            android:paddingStart="24dp"
+                            android:paddingTop="24dp"
+                            android:textSize="24sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"/>
 
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:text="15"
-                        android:textStyle="bold"
-                        android:textSize="32sp"
-                        android:gravity="center"
-                        android:textColor="@color/black"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:text="15"
+                            android:textStyle="bold"
+                            android:textSize="32sp"
+                            android:gravity="center"
+                            android:textColor="@color/black"/>
 
 
-                </LinearLayout>
+                    </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="250dp"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="12dp"
-                android:layout_marginStart="24dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="250dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
+                    app:cardCornerRadius="12dp"
+                    android:layout_marginStart="24dp"
+                    android:elevation="24dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Weekly Strikes:"
-                        android:paddingStart="24dp"
-                        android:paddingTop="24dp"
-                        android:textSize="24sp"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/black"/>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Weekly Strikes:"
+                            android:paddingStart="24dp"
+                            android:paddingTop="24dp"
+                            android:textSize="24sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:text="46"
-                        android:textStyle="bold"
-                        android:textSize="32sp"
-                        android:gravity="center"
-                        android:textColor="@color/black"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:text="46"
+                            android:textStyle="bold"
+                            android:textSize="32sp"
+                            android:gravity="center"
+                            android:textColor="@color/black"/>
 
-                </LinearLayout>
+                    </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-    </HorizontalScrollView>
+            </LinearLayout>
+        </HorizontalScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="34dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollView"
+            tools:listitem="@layout/item_task" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
