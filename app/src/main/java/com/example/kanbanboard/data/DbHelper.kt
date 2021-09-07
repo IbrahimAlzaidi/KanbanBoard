@@ -70,6 +70,11 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
         readDataCursor(cursor)
     }
 
+    fun filterTaskByStats(stats : String) {
+        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} LEFT JOIN ${DbSchema.TABLE_USERS} ON ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_ID} = ${DbSchema.TABLE_USERS+"."+DbSchema.USER_TASK_ID} where ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_STATS} = ? ", arrayOf<String>(stats))!!
+        readDataCursor(cursor)
+    }
+
     private fun readDataCursor(cursor: Cursor) {
         while (cursor.moveToNext()) {
             val id = cursor.getInt(0)
