@@ -40,12 +40,12 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     @SuppressLint("ResourceAsColor")
     private fun setupSearchView() {
         binding!!.apply {
-            searchBar.setOnQueryTextListener(object :
-                androidx.appcompat.widget.SearchView.OnQueryTextListener {
-                //click search icon in keyboard
-                override fun onQueryTextSubmit(query: String) = TODO("IMPLEMENT LATER")
-                override fun onQueryTextChange(newText: String?) = TODO("IMPLEMENT LATER")
-            })
+//            searchBar.setOnQueryTextListener(object :
+//                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+//                //click search icon in keyboard
+//                override fun onQueryTextSubmit(query: String) = TODO("IMPLEMENT LATER")
+//                override fun onQueryTextChange(newText: String?) = TODO("IMPLEMENT LATER")
+//            })
             searchBar.queryHint = "Search..."
         }
     }
