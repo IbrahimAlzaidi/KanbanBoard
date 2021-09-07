@@ -1,12 +1,15 @@
 package com.example.kanbanboard.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.kanbanboard.R
 import com.example.kanbanboard.databinding.ActivityHomeBinding
 import com.example.kanbanboard.ui.fragments.HomeFragment
 import com.example.kanbanboard.ui.fragments.ProfileFragment
 import com.example.kanbanboard.ui.fragments.TaskStatsFragment
+import nl.joery.animatedbottombar.AnimatedBottomBar
 
 class HomeActivity : AppCompatActivity() {
     private val fragmentHome = HomeFragment()
@@ -23,17 +26,24 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun addNavigationListener() {
-        binding.bottomNavigationView.apply {
-            onTabSelected = {
-                when(it.title){
-                    "home" ->{replaceFragment(fragmentHome)}
-                    "statistic" ->{replaceFragment(fragmentTaskStats)}
-                    "about" ->{replaceFragment(fragmentProfile)}
-                }
+        binding?.bottomNavigationView.setOnTabSelectListener(object : AnimatedBottomBar.OnTabSelectListener {
+            override fun onTabSelected(
+                lastIndex: Int,
+                lastTab: AnimatedBottomBar.Tab?,
+                newIndex: Int,
+                newTab: AnimatedBottomBar.Tab
+            ) {
+                replaceFragment(
+                    when(newTab.id){
+                        R.id.homePage -> fragmentHome
+                        R.id.statisticPage -> fragmentTaskStats
+                        R.id.profilePage -> fragmentProfile
+                        else -> return
+                    }
+                )
             }
-        }
+        })
     }
-
 
 
     private fun replaceFragment(newFragment: Fragment){
