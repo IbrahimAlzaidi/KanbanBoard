@@ -26,9 +26,9 @@ class HomeActivity : AppCompatActivity() {
         binding.bottomNavigationView.apply {
             onTabSelected = {
                 when(it.title){
-                    "home" ->{replaceFragment(fragmentHome)}
-                    "statistic" ->{replaceFragment(fragmentTaskStats)}
-                    "about" ->{replaceFragment(fragmentProfile)}
+                    "home" -> replaceFragment(fragmentHome)
+                    "statistic" -> replaceFragment(fragmentTaskStats)
+                    "about" -> replaceFragment(fragmentProfile)
                 }
             }
         }
