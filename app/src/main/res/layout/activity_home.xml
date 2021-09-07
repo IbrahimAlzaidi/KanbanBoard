@@ -23,7 +23,6 @@
         app:abb_indicatorHeight="4dp"
         app:abb_tabAnimation="slide"
         app:abb_tabAnimationSelected="slide"
-        app:abb_textAppearance="@style/CustomText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
