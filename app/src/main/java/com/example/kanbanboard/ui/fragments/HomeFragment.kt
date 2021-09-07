@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.TextView
 import com.example.kanbanboard.R
+import com.example.kanbanboard.data.DataManger
 import com.example.kanbanboard.databinding.ItemTaskBinding
 import java.lang.reflect.Array
 import java.util.*
@@ -25,9 +26,15 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
     override fun setup() {
-        getSpinner()
-        setupSearchView()
+       getSpinner()
+       setupSearchView()
+        setupRecycleView()
 
+    }
+
+    private fun setupRecycleView() {
+       /* val adapter = binding!!.recyclerView(TODO("GET LIST FROM DATA MANAGER"))
+        binding!!.recyclerView.adapter = adapter*/
     }
 
     @SuppressLint("ResourceAsColor")
