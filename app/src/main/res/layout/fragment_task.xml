@@ -117,7 +117,7 @@
         app:cardElevation="1dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="18dp"
-        app:layout_constraintBottom_toBottomOf="@id/mainLinear"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/theFirstCardView"
         app:layout_constraintStart_toStartOf="@id/theFirstCardView"
         app:layout_constraintTop_toBottomOf="@id/theFirstCardView">
