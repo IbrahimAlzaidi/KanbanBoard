@@ -7,15 +7,8 @@ import android.content.DialogInterface
 import android.view.LayoutInflater
 import com.example.kanbanboard.databinding.FragmentHomeBinding
 import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.SearchView
-import android.widget.TextView
 import com.example.kanbanboard.R
-import com.example.kanbanboard.data.DataManger
 import com.example.kanbanboard.databinding.ItemTaskBinding
-import java.lang.reflect.Array
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class HomeFragment:BaseFragment<FragmentHomeBinding>() {

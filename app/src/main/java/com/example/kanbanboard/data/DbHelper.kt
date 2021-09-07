@@ -1,6 +1,7 @@
 package com.example.kanbanboard.data
 
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
@@ -32,18 +33,9 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
 
     }
 
-    fun readData() {
+    fun readAllData() {
         val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} LEFT JOIN ${DbSchema.TABLE_USERS} ON ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_ID} = ${DbSchema.TABLE_USERS+"."+DbSchema.USER_TASK_ID}", arrayOf<String>())!!
-        while (cursor.moveToNext()){
-            val id = cursor.getInt(0)
-            val title = cursor.getString(1)
-            val desc = cursor.getString(2)
-            val stat = cursor.getString(3)
-            val userid = cursor.getInt(4)
-            val userName = cursor.getString(5)
-            val taskId = cursor.getInt(6)
-            Log.v("Hi Join", "$id - $title -$desc -$stat -$userid - $userName - $taskId" )
-        }
+        readDataCursor(cursor)
     }
     fun readTasksData (){
         val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} ", arrayOf<String>())
@@ -55,6 +47,43 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
             Log.v("Hi from Tasks Table", "$id - $title -$desc -$stat")
         }
     }
+    fun readUserData (){
+        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_USERS} ", arrayOf<String>())
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(0)
+            val userName = cursor.getString(1)
+            val desc = cursor.getString(2)
+            Log.v("Hi from Tasks Table", "$id - $userName -$desc ")
+        }
+    }
+
+    fun userFilter (name : String){
+        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_USERS} WHERE ${DbSchema.USER_NAME} = ?", arrayOf<String>(name))
+        while (cursor.moveToNext()){
+            val id = cursor.getInt(0)
+            val userName = cursor.getString(1)
+            val desc = cursor.getString(2)
+            Log.v("Hi from Tasks Table", "$id - $userName -$desc ")
+        }
+    }
+    fun filterTaskByName(name : String) {
+        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} LEFT JOIN ${DbSchema.TABLE_USERS} ON ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_ID} = ${DbSchema.TABLE_USERS+"."+DbSchema.USER_TASK_ID} where ${DbSchema.TABLE_USERS+"."+DbSchema.USER_NAME} = ? ", arrayOf<String>(name))!!
+        readDataCursor(cursor)
+    }
+
+    private fun readDataCursor(cursor: Cursor) {
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(0)
+            val title = cursor.getString(1)
+            val desc = cursor.getString(2)
+            val stat = cursor.getString(3)
+            val userid = cursor.getInt(4)
+            val userName = cursor.getString(5)
+            val taskId = cursor.getInt(6)
+            Log.v("Hi Join", "$id - $title -$desc -$stat -$userid - $userName - $taskId")
+        }
+    }
+
 
     companion object{
         private const val DBNAME = "TasksManagerDb"
