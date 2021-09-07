@@ -2,6 +2,8 @@ package com.example.kanbanboard.ui.fragments
 
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import com.example.kanbanboard.databinding.FragmentHomeBinding
 import android.widget.ArrayAdapter
@@ -23,7 +25,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
     override fun setup() {
-       getSpinner()
+        getSpinner()
         setupSearchView()
 
     }
@@ -49,6 +51,20 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun addCallBack() {
+        binding?.appCompatButton?.setOnClickListener {
+            addNewTask()
+        }
     }
 
-}
+    private fun addNewTask() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.apply {
+            setView(requireActivity().layoutInflater.inflate(R.layout.input_dialog, null))
+            setPositiveButton("ADD",DialogInterface.OnClickListener{dialogInterface, i ->
+                TODO("Pass function")
+                })
+            }
+        val inputDialog = builder.create()
+        inputDialog.show()
+        }
+    }
