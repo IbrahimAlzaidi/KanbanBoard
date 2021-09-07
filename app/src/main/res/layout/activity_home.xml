@@ -27,5 +27,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:abb_tabs="@menu/main_bottom_navigation"
-        app:abb_selectedIndex="0" />
+        app:abb_selectedIndex="0"
+        app:abb_textAppearance="@style/NavigationCustomText"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
