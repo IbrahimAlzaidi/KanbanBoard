@@ -119,7 +119,7 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
                 AASeriesElement()
                     .color("#c62828")
                     .name("Block")
-                    .data(arrayOf(0.2, 0.8, 5.7, 11.3, 17.0,)),
+                    .data(arrayOf(0.2, 0.8, 5.7, 11.3, 17.0)),
             )
             )
             .animationDuration(3000)
@@ -128,10 +128,10 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
 
     }
     private fun chartDataSet1(data: MutableList<Double>,typeOfChart : AAChartType,data1: MutableList<Double>){
-        val aaChartView = binding?.paiChart
+        val aaChartView = binding?.paiChartCard2
         val aaChartModel : AAChartModel = AAChartModel()
             .chartType(typeOfChart)
-            .backgroundColor("#F4FAFD")
+            .backgroundColor("#FFFFFFFF")
             .dataLabelsEnabled(true)
             .yAxisTitle("")
             .yAxisLabelsEnabled(false)
@@ -143,7 +143,7 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
                     .name("Done")
                     .color("#689F38")
                     .enableMouseTracking(true)
-                    .data(data.toTypedArray(),)
+                    .data(data.toTypedArray())
                     .data(data1.toTypedArray()),
                 AASeriesElement()
                     .color("#FFD10F")
@@ -152,7 +152,7 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
                 AASeriesElement()
                     .color("#c62828")
                     .name("Block")
-                    .data(arrayOf(0.2, 0.8, 5.7, 11.3, 17.0,))
+                    .data(arrayOf(0.2, 0.8, 5.7, 11.3, 17.0))
                     .dataLabels(AADataLabels())
                     .enableMouseTracking(true)
                     .innerSize(15)
