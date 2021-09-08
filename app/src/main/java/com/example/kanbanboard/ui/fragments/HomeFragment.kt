@@ -18,6 +18,9 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     override val LOG_TAG: String = "Home Fragment"
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
+
+    val inputFragment = InputFragment()
+
     override fun setup() {
        getSpinner()
        setupSearchView()
@@ -52,19 +55,9 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
 
     override fun addCallBack() {
         binding?.appCompatButton?.setOnClickListener {
-            addNewTask()
+            val transaction = activity?.supportFragmentManager?.beginTransaction()
+            transaction?.add(R.id.container,inputFragment)
+            transaction?.commit()
         }
-    }
-
-    private fun addNewTask() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.apply {
-            setView(requireActivity().layoutInflater.inflate(R.layout.input_dialog, null))
-            setPositiveButton("ADD",DialogInterface.OnClickListener{dialogInterface, i ->
-                TODO("Pass function")
-                })
-            }
-        val inputDialog = builder.create()
-        inputDialog.show()
-        }
+      }
     }
