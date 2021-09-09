@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Add Task"
+        android:textColor="#3C4EC4"
+        android:textSize="38sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <EditText
         android:id="@+id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="128dp"
         android:background="@drawable/custom_input"
         android:hint="Task title"
         android:textColorHint="#616161"
@@ -40,15 +53,27 @@
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     <Spinner
-        android:id="@+id/taskType"
-        android:layout_width="84dp"
+        android:id="@+id/taskState"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
+        android:entries="@array/task_state"
         android:layout_marginTop="28dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskDescription"
         />
 
+    <Spinner
+        android:id="@+id/taskType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:minHeight="48dp"
+        android:entries="@array/task_type"
+        app:layout_constraintTop_toBottomOf="@id/taskState"
+        app:layout_constraintStart_toStartOf="@id/taskState"
+        app:layout_constraintEnd_toEndOf="@id/taskState"
+    />
     <EditText
         android:id="@+id/editTextDate"
         android:layout_width="0dp"
@@ -57,20 +82,21 @@
         android:ems="10"
         android:inputType="date"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toBottomOf="@id/taskType"
+        app:layout_constraintBottom_toBottomOf="@id/taskState"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@id/taskType"
+        app:layout_constraintStart_toEndOf="@id/taskState"
         />
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Task"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="128dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextDate"
         />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

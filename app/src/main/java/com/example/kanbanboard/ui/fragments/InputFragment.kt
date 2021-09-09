@@ -20,8 +20,11 @@ class InputFragment : BaseFragment<FragmentInputBinding>(){
         binding?.saveButton?.setOnClickListener {
             val title = binding?.textTitle?.text.toString().trim()
             val desc = binding?.taskDescription?.text.toString().trim()
-            val state = "TODO"
-            dbHelper.addTask(title,desc,state,"Done",Random.nextInt(0,100))
+            val state = binding?.taskState?.selectedItem.toString().trim()
+            val type = binding?.taskType?.selectedItem.toString().trim()
+
+
+            dbHelper.addTask(title,desc,state,type,Random.nextInt(0,100))
             dbHelper.addUser(title,Random.nextInt(0,50))
         }
     }

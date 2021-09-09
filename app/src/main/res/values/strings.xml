@@ -7,9 +7,18 @@
     <string name="to_do">To Do</string>
     <string name="in_progress">In progress</string>
     <string name="done">Done</string>
-    <string-array name="task_type">
-        <item>To Do</item>
-        <item>Pending</item>
+
+    <string-array name="task_state">
+        <item>in backlog</item>
+        <item>in progress</item>
         <item>Done</item>
     </string-array>
+
+    <string-array name="task_type">
+        <item>design</item>
+        <item>implement</item>
+        <item>debug</item>
+        <item>review</item>
+    </string-array>
+
 </resources>
