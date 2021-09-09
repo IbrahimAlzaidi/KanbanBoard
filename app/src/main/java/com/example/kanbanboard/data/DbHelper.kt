@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.example.kanbanboard.model.DbTaskModel
 import com.example.kanbanboard.model.DbUserModel
+import kotlin.math.min
 
 class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSION) {
 
@@ -73,14 +74,31 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
             Log.v("Hi from Tasks Table", "$id - $userName")
         }
     }
+
     fun filterTaskByUserName(name : String) {
         val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} LEFT JOIN ${DbSchema.TABLE_USERS} ON ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_ID} = ${DbSchema.TABLE_USERS+"."+DbSchema.USER_TASK_ID} where ${DbSchema.TABLE_USERS+"."+DbSchema.USER_NAME} = ? ", arrayOf(name))!!
         readDataCursor(cursor)
     }
+
     fun filterTaskByStats(stats : String) {
         val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} LEFT JOIN ${DbSchema.TABLE_USERS} ON ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_ID} = ${DbSchema.TABLE_USERS+"."+DbSchema.USER_TASK_ID} where ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_STATS} = ? ", arrayOf(stats))!!
         readDataCursor(cursor)
     }
+    @SuppressLint("Range")
+    fun filterTaskByStatsChart(taskType : String) :MutableList<Int>{
+        val list : MutableList<Int> = ArrayList()
+        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} LEFT JOIN ${DbSchema.TABLE_USERS} ON ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_ID} = ${DbSchema.TABLE_USERS+"."+DbSchema.USER_TASK_ID} where ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_TYPE} = ? ", arrayOf(taskType))!!
+        var index = 0
+        while (cursor.moveToNext()){
+            cursor.getInt(cursor.getColumnIndex("task_type"))
+            index +=1
+        }
+        list.add(index)
+        readDataCursor(cursor)
+        return list
+    }
+
+
     private fun readDataCursor(cursor: Cursor) {
         while (cursor.moveToNext()) {
             val id = cursor.getInt(0)
