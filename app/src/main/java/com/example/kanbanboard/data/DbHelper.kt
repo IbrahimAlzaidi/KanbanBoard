@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.example.kanbanboard.model.DbTaskModel
-import com.example.kanbanboard.model.DbUserModel
 
 class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSION) {
 
@@ -21,91 +20,79 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
                 "${DbSchema.TASK_DESC} TEXT," +
                 "${DbSchema.TASK_STATS} TEXT," +
                 "${DbSchema.TASK_TYPE} TEXT," +
-                "${DbSchema.TASK_DATE} DATE " +
-                ")"
-
-        val usersTable = "CREATE TABLE ${DbSchema.TABLE_USERS} (" +
-                "${DbSchema.USER_ID} INTEGER PRIMARY KEY," +
-                "${DbSchema.USER_NAME} TEXT," +
-                "${DbSchema.USER_TASK_ID} INTEGER" +
+                "${DbSchema.TASK_DATE} TEXT," +
+                "${DbSchema.USER_NAME} TEXT " +
                 ")"
 
         Db?.execSQL(tasksTable)
-        Db?.execSQL(usersTable)
-
     }
-
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        p0?.execSQL("DROP TABLE IF EXISTS " + DbSchema.TASK_TYPE)
-        p0?.execSQL("DROP TABLE IF EXISTS " + DbSchema.TABLE_USERS)
+        p0?.execSQL("DROP TABLE IF EXISTS " + DbSchema.TASK_TYPE + ";")
         onCreate(p0)
-
     }
-
-    fun readAllData() {
-        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} LEFT JOIN ${DbSchema.TABLE_USERS} ON ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_ID} = ${DbSchema.TABLE_USERS+"."+DbSchema.USER_TASK_ID}", arrayOf<String>())!!
-        readDataCursor(cursor)
-    }
+    @SuppressLint("Range", "Recycle")
     fun readTasksData (){
-        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} ", arrayOf<String>())
+        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} ", arrayOf())
         while (cursor.moveToNext()){
-            val id = cursor.getInt(0)
-            val title = cursor.getString(1)
-            val desc = cursor.getString(2)
-            val stat = cursor.getString(3)
-            Log.v("Hi from Tasks Table", "$id - $title -$desc -$stat")
+            val id = cursor.getInt(cursor.getColumnIndex("id"))
+            val title = cursor.getString(cursor.getColumnIndex("title"))
+            val desc = cursor.getString(cursor.getColumnIndex("description"))
+            val status = cursor.getString(cursor.getColumnIndex("stats"))
+            val taskType = cursor.getString(cursor.getColumnIndex("task_type"))
+            val taskDate = cursor.getString(cursor.getColumnIndex("task_date"))
+            val userName = cursor.getString(cursor.getColumnIndex("user_name"))
+            Log.v("Hi from Tasks Table", "$id - $title -$desc -$status-$taskType-$taskDate-$userName")
         }
-    }
-    fun readUserData (){
-        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_USERS} ", arrayOf<String>())
-        while (cursor.moveToNext()){
-            val id = cursor.getInt(0)
-            val userName = cursor.getString(1)
-            val desc = cursor.getString(2)
-            Log.v("Hi from Tasks Table", "$id - $userName -$desc ")
-        }
-    }
-    fun userFilter (name : String){
-        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_USERS} WHERE ${DbSchema.USER_NAME} = ?", arrayOf(name))
-        while (cursor.moveToNext()){
-            val id = cursor.getInt(0)
-            val userName = cursor.getString(1)
-            Log.v("Hi from Tasks Table", "$id - $userName")
-        }
-    }
+    }//done & check
+
     fun filterTaskByUserName(name : String) {
-        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} LEFT JOIN ${DbSchema.TABLE_USERS} ON ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_ID} = ${DbSchema.TABLE_USERS+"."+DbSchema.USER_TASK_ID} where ${DbSchema.TABLE_USERS+"."+DbSchema.USER_NAME} = ? ", arrayOf(name))!!
+        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} WHERE ${DbSchema.USER_NAME} = ?", arrayOf(name))
         readDataCursor(cursor)
-    }
+    }//Refactor
+
     fun filterTaskByStats(stats : String) {
-        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} LEFT JOIN ${DbSchema.TABLE_USERS} ON ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_ID} = ${DbSchema.TABLE_USERS+"."+DbSchema.USER_TASK_ID} where ${DbSchema.TABLE_TASKS+"."+DbSchema.TASK_STATS} = ? ", arrayOf(stats))!!
+        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} WHERE ${DbSchema.USER_NAME} = ?", arrayOf(stats))
         readDataCursor(cursor)
-    }
+    }//Refactor
+
+    @SuppressLint("Range")
+    fun filterTaskByStatsChart(taskType : String) :MutableList<Int>{
+        val list : MutableList<Int> = ArrayList()
+        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} WHERE ${DbSchema.USER_NAME} = ?", arrayOf(taskType))
+        var index = 0
+        while (cursor.moveToNext()){
+            cursor.getInt(cursor.getColumnIndex("task_type"))
+            index +=1
+        }
+        list.add(index)
+        readDataCursor(cursor)
+        return list
+    } //Done
+
     private fun readDataCursor(cursor: Cursor) {
         while (cursor.moveToNext()) {
             val id = cursor.getInt(0)
             val title = cursor.getString(1)
             val desc = cursor.getString(2)
-            val stat = cursor.getString(3)
+            val status = cursor.getString(3)
             val taskType = cursor.getString(4)
             val taskDate = cursor.getInt(5)
-            val userid = cursor.getInt(6)
-            val userName = cursor.getString(7)
-            val taskId = cursor.getInt(8)
-            Log.v("Hi Join", "$id - $title -$desc -$stat -$taskType - $taskDate - $userid - $userName - $taskId")
+            val userName = cursor.getString(6)
+            Log.v("Hi Join", "$id - $title -$desc -$status -$taskType - $taskDate -$userName")
         }
-    }
+    } //Done
 
-    @SuppressLint("Range")
+    @SuppressLint("Range", "Recycle")
     fun getAllTasksData():MutableList<DbTaskModel>{
         val tasksList : ArrayList<DbTaskModel> = ArrayList()
         val cursor : Cursor? = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS}",null)
-        var idTask : Int ?
+        var idTask : Int?
         var titleTask : String?
         var descTask:String?
         var statsTask:String?
         var typeTask:String?
-        var dateTask:Int?
+        var dateTask:String?
+        var userNAME : String?
 
         if (cursor != null) {
             while (cursor.moveToNext()){
@@ -114,56 +101,25 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
                 descTask = cursor.getString(cursor.getColumnIndex("description"))
                 statsTask = cursor.getString(cursor.getColumnIndex("stats"))
                 typeTask = cursor.getString(cursor.getColumnIndex("task_type"))
-                dateTask = cursor.getInt(cursor.getColumnIndex("task_date"))
-
+                dateTask = cursor.getString(cursor.getColumnIndex("task_date"))
+                userNAME = cursor.getString(cursor.getColumnIndex("user_name"))
                 val std = DbTaskModel(
                     idTask = idTask,
                     titleTask = titleTask,
                     descTask = descTask,
                     statsTask = statsTask,
                     typeTask = typeTask,
-                    dateTask = dateTask
+                    dateTask = dateTask,
+                    userName = userNAME
                 )
                 tasksList.add(std)
-                Log.i("TASKS", "${std.idTask} + ${std.titleTask} + ${std.descTask} + ${std.statsTask}+ ${std.typeTask}+ ${std.dateTask}")
+                Log.i("TASKS", "${std.idTask} + ${std.titleTask} + ${std.descTask} + ${std.statsTask}+ ${std.typeTask}+ ${std.dateTask}+ ${std.userName}")
             }
         }
         return tasksList
     }
 
-    @SuppressLint("Range")
-    fun getAllUserData():MutableList<DbUserModel>{
-        val tasksList : ArrayList<DbUserModel> = ArrayList()
-        val selectQuery = "SELECT * FROM ${DbSchema.TABLE_USERS}"
-        val dp = this.readableDatabase
-        val cursor : Cursor?
-        try {
-            cursor = dp.rawQuery(selectQuery,null)
-        }catch (e:Exception){
-            e.printStackTrace()
-            dp.execSQL(selectQuery)
-            return ArrayList()
-        }
-        var idUser : Int ?
-        var nameUser : String?
-        var taskIdUser:Int?
-
-        while (cursor.moveToNext()){
-            idUser = cursor.getInt(cursor.getColumnIndex("id"))
-            nameUser = cursor.getString(cursor.getColumnIndex("title"))
-            taskIdUser = cursor.getInt(cursor.getColumnIndex("description"))
-
-            val std = DbUserModel(
-                userId = idUser,
-                userName = nameUser,
-                userTaskId = taskIdUser)
-            tasksList.add(std)
-            Log.i("AABB", "${std.userId} + ${std.userName} + ${std.userTaskId}")
-        }
-        return tasksList
-    }
-
-    fun addTask(title:String, desc:String, status:String, taskType:String, taskDate:Int){
+    fun addTask(title:String, desc:String, status:String, taskType:String, taskDate:Int,userName:String){
         val db = this.writableDatabase
         val cv = ContentValues()
         cv.apply {
@@ -172,24 +128,13 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
             put(DbSchema.TASK_STATS,status)
             put(DbSchema.TASK_TYPE,taskType)
             put(DbSchema.TASK_DATE,taskDate)
+            put(DbSchema.USER_NAME,userName)
             db.insert(DbSchema.TABLE_TASKS,null,cv)
         }
-
     }
-    fun addUser(userName:String,taskUserId:Int){
-        val db = this.writableDatabase
-        val cv = ContentValues()
-        cv.apply {
-            put(DbSchema.USER_NAME,userName)
-            put(DbSchema.USER_TASK_ID,taskUserId)
-        }
-        db.insert(DbSchema.TABLE_USERS,null,cv)
-    }
-
-
     companion object{
         private const val DBNAME = "TasksManagerDb"
-        private val DBVERSION = 4
+        private const val DBVERSION = 6
     }
 
 }

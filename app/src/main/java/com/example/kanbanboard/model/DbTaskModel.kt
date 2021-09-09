@@ -5,6 +5,7 @@ data class DbTaskModel(
     var titleTask   : String,
     var descTask    : String,
     var statsTask   : String,
-    var typeTask    :String,
-    var dateTask    :Int
+    val typeTask    : String,
+    val dateTask    : String?,
+    var userName   : String,
 )

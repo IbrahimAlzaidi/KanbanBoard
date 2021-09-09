@@ -17,6 +17,7 @@ class InputFragment : BaseFragment<FragmentInputBinding>(){
         get() = FragmentInputBinding :: inflate
     override fun setup() {
         dbHelper = DbHelper(activity?.applicationContext!!)
+
     }
 
     @SuppressLint("SimpleDateFormat")
