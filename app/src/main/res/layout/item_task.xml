@@ -5,16 +5,14 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="8dp"
-    android:elevation="12dp"
-    android:layout_marginHorizontal="8dp"
-    app:cardCornerRadius="16dp"
+    android:elevation="4dp"
+    app:cardCornerRadius="18dp"
     android:background="#FFFEFE"
     android:layout_marginBottom="8dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="2dp">
-
         <TextView
             android:id="@+id/text_task_title"
             android:layout_width="180dp"
@@ -113,4 +111,3 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
-
