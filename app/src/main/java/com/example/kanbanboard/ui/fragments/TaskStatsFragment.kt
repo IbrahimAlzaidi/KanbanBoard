@@ -15,18 +15,10 @@ import com.github.aachartmodel.aainfographics.aachartcreator.*
 class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
 
     val listStatus = arrayListOf(
-        "Area" ,
-        "Arearange" ,
-        "Areaspline",
         "Bar" ,
         "Columnrange" ,
-        "Column",
-        "Line" ,
-        "Polygon",
-        "Pie" ,
-        "Spline" ,
-        "Scatter",
-        "Waterfall" ,
+        "Line",
+        "Scatter" ,
     )
     val listStatus2 = arrayListOf(
         "Done",
@@ -41,18 +33,13 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
 
     override fun setup() {
         db=DbHelper(requireActivity().applicationContext)
-        val data = db.filterTaskByStatsChart("Done")
-        var x : Int = 0
-        for (i in 0..data.lastIndex){
-            x+=i
-        }
+        db.filterTaskByStatsChart("Done")
     }
 
     override fun addCallBack() {
         chart1DataSet(AAChartType.Bar)
-        chart2DataSet(AAChartType.Column)
+        chart2DataSet(AAChartType.Bar)
         dataSpinner()
-
     }
     private fun dataSpinner(){
         val spinnerAdapter =
@@ -74,16 +61,10 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
         binding?.firstSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, poisition: Int, p3: Long) {
                 when(listStatus[poisition]){
-                    listStatus[0] -> {chart1DataSet(AAChartType.Area)}
-                    listStatus[1] -> {chart1DataSet(AAChartType.Areaspline)}
-                    listStatus[2] -> {chart1DataSet(AAChartType.Bar)}
-                    listStatus[3] -> {chart1DataSet(AAChartType.Columnrange)}
-                    listStatus[4] -> {chart1DataSet(AAChartType.Column)}
-                    listStatus[5] -> {chart1DataSet(AAChartType.Line)}
-                    listStatus[6] -> {chart1DataSet(AAChartType.Polygon)}
-                    listStatus[8] -> {chart1DataSet(AAChartType.Spline)}
-                    listStatus[9] -> {chart1DataSet(AAChartType.Scatter)}
-                    listStatus[10] -> {chart1DataSet(AAChartType.Waterfall)}
+                    listStatus[0] -> {chart1DataSet(AAChartType.Bar)}//yes
+                    listStatus[1] -> {chart1DataSet(AAChartType.Columnrange)}//yes
+                    listStatus[2] -> {chart1DataSet(AAChartType.Line)}
+                    listStatus[3] -> {chart1DataSet(AAChartType.Scatter)}//yes
                 }
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -94,9 +75,8 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
                 when (listStatus2[position]){
                     listStatus2[0] -> {
-                        val data = db.filterTaskByStats(listStatus2[0])
+                        db.filterTaskByStats(listStatus2[0])
                         Log.i("MAIN_ACTIVITY","${db.filterTaskByStatsChart("Done")}")
-
                     }
                     listStatus2[1] -> {}
                     listStatus2[2] -> {}
@@ -134,11 +114,11 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
                     .name("In Progress")
                     .color("#FFD10F")
                     .enableMouseTracking(true)
-                    .data(arrayOf(4,1,3,4,2,1,4,1)),
+                    .data(db.filterTaskByStatsChart("In Progress").toTypedArray()),
                 AASeriesElement()
                     .name("Block")
                     .color("#c62828")
-                    .data(arrayOf(1,0,0,3,2,1,1,0))
+                    .data(db.filterTaskByStatsChart("Block").toTypedArray())
                     .enableMouseTracking(true),
             )
             )
