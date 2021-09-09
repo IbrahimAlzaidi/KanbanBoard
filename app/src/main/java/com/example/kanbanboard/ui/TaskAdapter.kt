@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kanbanboard.R
 import com.example.kanbanboard.databinding.ItemTaskBinding
+import com.example.kanbanboard.model.DbTaskModel
 
-class TaskAdapter(val list:List <String>):RecyclerView.Adapter<TaskAdapter.TaskViewHolder>()
+class TaskAdapter(private val list:MutableList <DbTaskModel>):RecyclerView.Adapter<TaskAdapter.TaskViewHolder>()
 {
 
 
@@ -19,11 +20,9 @@ class TaskAdapter(val list:List <String>):RecyclerView.Adapter<TaskAdapter.TaskV
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val  currentPosition = list[position]
         holder.binding.apply {
-            textTaskTitle = TODO()
-            textTaskDescription = TODO()
-            taskStatus = TODO()
-            spinnerTaskType = TODO()
-            taskDate = TODO()
+            textTaskTitle.text =currentPosition.titleTask
+            textTaskDescription.text = currentPosition.descTask
+            taskStatus.text = currentPosition.statsTask
         }
     }
 

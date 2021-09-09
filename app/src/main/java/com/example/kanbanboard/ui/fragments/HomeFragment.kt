@@ -8,12 +8,15 @@ import android.view.LayoutInflater
 import com.example.kanbanboard.databinding.FragmentHomeBinding
 import android.widget.ArrayAdapter
 import com.example.kanbanboard.R
+import com.example.kanbanboard.data.DbHelper
+import com.example.kanbanboard.data.DbSchema
 import com.example.kanbanboard.databinding.ItemTaskBinding
+import com.example.kanbanboard.model.DbTaskModel
+import com.example.kanbanboard.ui.TaskAdapter
 
 
 class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     private  var item_task :ItemTaskBinding? = null
-
 
     override val LOG_TAG: String = "Home Fragment"
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
@@ -29,8 +32,8 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setupRecycleView() {
-       /* val adapter = binding!!.recyclerView(TODO("GET LIST FROM DATA MANAGER"))
-        binding!!.recyclerView.adapter = adapter*/
+        val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksData())
+        binding!!.recyclerView.adapter = adapter
     }
 
     @SuppressLint("ResourceAsColor")
@@ -47,7 +50,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun getSpinner(){
-         val array= listOf("1","2","3")
+         val array= listOf("To Do ","In progress","Done")
         val spinnerAdapter = ArrayAdapter(requireContext(), R.layout.spinner_info ,array )
         spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         item_task?.spinnerTaskType?.adapter = spinnerAdapter
