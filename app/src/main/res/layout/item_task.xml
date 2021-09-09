@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="8dp"
-    android:elevation="8dp"
+    android:elevation="12dp"
+    android:layout_marginHorizontal="8dp"
     app:cardCornerRadius="16dp"
     android:background="#FFFEFE"
     android:layout_marginBottom="8dp">

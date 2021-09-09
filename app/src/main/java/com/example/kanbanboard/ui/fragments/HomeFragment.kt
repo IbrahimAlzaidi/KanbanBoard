@@ -36,9 +36,6 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun getChipsFiltered() {
-        binding?.textTodo?.setOnClickListener {
-            dbHelper?.filterTaskByStats("To Do")
-        }
         binding?.textInProgress?.setOnClickListener {
             dbHelper?.filterTaskByStats("in progress")
         }
