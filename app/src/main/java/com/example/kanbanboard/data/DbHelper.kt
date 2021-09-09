@@ -37,8 +37,8 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        p0?.execSQL("DROP TABLE IF EXISTS " + DbSchema.TASK_TYPE)
-        p0?.execSQL("DROP TABLE IF EXISTS " + DbSchema.TABLE_USERS)
+        p0?.execSQL("DROP TABLE IF EXISTS " + DbSchema.TASK_TYPE + ";")
+        p0?.execSQL("DROP TABLE IF EXISTS " + DbSchema.TABLE_USERS + ";")
         onCreate(p0)
 
     }
@@ -207,7 +207,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
 
     companion object{
         private const val DBNAME = "TasksManagerDb"
-        private val DBVERSION = 4
+        private val DBVERSION = 5
     }
 
 }
