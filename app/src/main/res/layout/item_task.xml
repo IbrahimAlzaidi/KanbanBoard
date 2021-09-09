@@ -42,6 +42,18 @@
             app:layout_constraintTop_toBottomOf="@+id/text_task_title"
             tools:text="create the home fragment layout" />
 
+        <TextView
+            android:id="@+id/user_text"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:textColor="#110E3B"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/user_image"
+            app:layout_constraintStart_toStartOf="@+id/text_task_description"
+            app:layout_constraintTop_toBottomOf="@+id/text_task_description"
+            tools:text="RA" />
+
         <com.google.android.material.chip.Chip
             android:id="@+id/task_status"
             android:layout_width="wrap_content"
@@ -51,7 +63,7 @@
             android:textColor="#616161"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_task_description"
+            app:layout_constraintTop_toBottomOf="@+id/user_text"
             tools:text="Design" />
 
         <androidx.cardview.widget.CardView

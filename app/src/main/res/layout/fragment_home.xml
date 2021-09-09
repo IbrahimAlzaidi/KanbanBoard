@@ -60,6 +60,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/text_todo"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 style="@style/typeTask"
@@ -67,6 +68,7 @@
                 />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/text_inProgress"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 style="@style/typeTask"
@@ -74,11 +76,19 @@
                 />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/text_done"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 style="@style/typeTask"
                 android:text="@string/done"
                  />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/text_inBackLog"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                style="@style/typeTask"
+                android:text="back log"
+                />
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 

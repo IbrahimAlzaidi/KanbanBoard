@@ -21,13 +21,43 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     override val LOG_TAG: String = "Home Fragment"
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
-
+    val profileFragment = ProfileFragment()
     val inputFragment = InputFragment()
+     var dbHelper:DbHelper? = null
 
     override fun setup() {
        getSpinner()
        setupSearchView()
         setupRecycleView()
+        displayProfileFragment()
+        getChipsFiltered()
+
+
+    }
+
+    private fun getChipsFiltered() {
+        binding?.textTodo?.setOnClickListener {
+            dbHelper?.filterTaskByStats("To Do")
+        }
+        binding?.textInProgress?.setOnClickListener {
+            dbHelper?.filterTaskByStats("in progress")
+        }
+        binding?.textDone?.setOnClickListener {
+            dbHelper?.filterTaskByStats("Done")
+        }
+        binding?.textInBackLog?.setOnClickListener {
+            dbHelper?.filterTaskByStats("in backlog")
+        }
+    }
+
+    private fun displayProfileFragment() {
+        item_task?.userText
+            ?.setOnClickListener {
+            val transaction = activity?.supportFragmentManager!!.beginTransaction()
+                .add(R.id.container,profileFragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
     }
 
