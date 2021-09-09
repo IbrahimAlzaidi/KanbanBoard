@@ -1,7 +1,6 @@
 package com.example.kanbanboard.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.kanbanboard.R
@@ -26,7 +25,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun addNavigationListener() {
-        binding?.bottomNavigationView.setOnTabSelectListener(object : AnimatedBottomBar.OnTabSelectListener {
+        binding.bottomNavigationView.setOnTabSelectListener(object : AnimatedBottomBar.OnTabSelectListener {
             override fun onTabSelected(
                 lastIndex: Int,
                 lastTab: AnimatedBottomBar.Tab?,

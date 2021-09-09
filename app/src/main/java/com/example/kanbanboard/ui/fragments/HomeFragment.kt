@@ -2,16 +2,12 @@ package com.example.kanbanboard.ui.fragments
 
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.view.LayoutInflater
-import com.example.kanbanboard.databinding.FragmentHomeBinding
 import android.widget.ArrayAdapter
 import com.example.kanbanboard.R
 import com.example.kanbanboard.data.DbHelper
-import com.example.kanbanboard.data.DbSchema
+import com.example.kanbanboard.databinding.FragmentHomeBinding
 import com.example.kanbanboard.databinding.ItemTaskBinding
-import com.example.kanbanboard.model.DbTaskModel
 import com.example.kanbanboard.ui.TaskAdapter
 
 
@@ -21,16 +17,16 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     override val LOG_TAG: String = "Home Fragment"
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
-    val profileFragment = ProfileFragment()
-    val inputFragment = InputFragment()
-     var dbHelper:DbHelper? = null
+    private val profileFragment = ProfileFragment()
+    private val inputFragment = InputFragment()
+    var dbHelper:DbHelper? = null
 
     override fun setup() {
        getSpinner()
        setupSearchView()
-        setupRecycleView()
-        displayProfileFragment()
-        getChipsFiltered()
+       setupRecycleView()
+       displayProfileFragment()
+       getChipsFiltered()
 
 
     }
@@ -58,7 +54,6 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
                 .addToBackStack(null)
                 .commit()
         }
-
     }
 
     private fun setupRecycleView() {
