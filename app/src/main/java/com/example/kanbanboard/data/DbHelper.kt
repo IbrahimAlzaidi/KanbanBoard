@@ -8,8 +8,9 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.example.kanbanboard.model.DbTaskModel
-class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSION) {
 
+
+class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSION) {
 
     override fun onCreate(Db: SQLiteDatabase?) {
         val tasksTable = "CREATE TABLE ${DbSchema.TABLE_TASKS} (" +

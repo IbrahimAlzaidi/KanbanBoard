@@ -65,7 +65,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>(),ClickListener {
                 .commit()
         }
 
-    }*/
+    }
 
     private fun setupRecycleView() {
         val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksData(),this)
@@ -122,4 +122,4 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>(),ClickListener {
             }
         }
 
-    }
+    }}
