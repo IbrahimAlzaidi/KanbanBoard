@@ -7,6 +7,7 @@
     android:padding="8dp"
     android:elevation="4dp"
     android:layout_marginTop="8dp"
+    android:layout_marginHorizontal="8dp"
     app:cardCornerRadius="18dp"
     android:background="#FFFEFE"
     android:layout_marginBottom="8dp">
@@ -105,10 +106,12 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
+            android:gravity="center"
             android:minWidth="48dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView2"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/task_status" />
+            tools:text="BOOM"
+            android:textColor="@color/black"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
+            app:layout_constraintStart_toEndOf="@+id/textView2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

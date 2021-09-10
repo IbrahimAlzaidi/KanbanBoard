@@ -29,6 +29,7 @@ val dbHelper:DbHelper? = null
             textTaskDescription.text = currentPosition.descTask
             taskStatus.text = currentPosition.statsTask
             userText.text = currentPosition.userName.subSequence(0,2)
+            taskDate.text=currentPosition.dateTask
         }
     }
 
