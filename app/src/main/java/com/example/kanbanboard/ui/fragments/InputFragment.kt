@@ -21,7 +21,7 @@ class InputFragment : BaseFragment<FragmentInputBinding>(){
             val title = binding?.textTitle?.text.toString().trim()
             val desc = binding?.taskDescription?.text.toString().trim()
             val state = "TODO"
-            dbHelper.addTask(title,desc,state,"Done",Random.nextInt(0,100),"Noor")
+            dbHelper.addTask(title,desc,"Back Log","In Progress","10","Ali")
         }
     }
 }
