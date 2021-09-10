@@ -25,24 +25,25 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="8dp"
         app:layout_constraintStart_toEndOf="@+id/text_home"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/text_home">
+
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_bar"
-            android:background="@drawable/search_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:elevation="4dp"
-            app:searchIcon="@drawable/ic_search"
             android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/search_view"
+            android:elevation="4dp"
             android:gravity="center_vertical"
             app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:searchIcon="@drawable/ic_search" />
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
