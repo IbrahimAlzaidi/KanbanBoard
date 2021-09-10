@@ -36,6 +36,11 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        setupRecycleView()
+    }
+
     private fun getChipsFiltered() {
         binding?.textInProgress?.setOnClickListener {
             val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksDataSpinner("in progress"))
