@@ -100,6 +100,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
         binding?.appCompatButton?.setOnClickListener {
             val transaction = activity?.supportFragmentManager?.beginTransaction()
             transaction?.add(R.id.container,inputFragment)
+                ?.addToBackStack(null)
             transaction?.commit()
         }
       }
