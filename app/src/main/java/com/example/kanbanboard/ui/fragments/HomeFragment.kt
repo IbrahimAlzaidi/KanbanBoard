@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import com.example.kanbanboard.databinding.FragmentHomeBinding
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.kanbanboard.R
 import com.example.kanbanboard.data.DbHelper
 import com.example.kanbanboard.data.DbSchema
@@ -52,6 +53,10 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>(),ClickListener {
             binding!!.recyclerView.adapter = adapter
         }
         binding?.textInBackLog?.setOnClickListener {
+            val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksDataSpinner("in backlog"),this)
+            binding!!.recyclerView.adapter = adapter
+        }
+        binding?.textAllTasks?.setOnClickListener {
             setupRecycleView()
         }
     }

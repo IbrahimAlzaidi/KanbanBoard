@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.kanbanboard.R
 import com.example.kanbanboard.databinding.ActivityHomeBinding
+import com.example.kanbanboard.ui.fragments.AboutFragment
 import com.example.kanbanboard.ui.fragments.HomeFragment
 import com.example.kanbanboard.ui.fragments.ProfileFragment
 import com.example.kanbanboard.ui.fragments.TaskStatsFragment
@@ -14,6 +15,7 @@ class HomeActivity : AppCompatActivity() {
     private val fragmentHome = HomeFragment()
     private val fragmentProfile = ProfileFragment()
     private val fragmentTaskStats = TaskStatsFragment()
+    private val fragmentAbout = AboutFragment()
 
     private lateinit var binding: ActivityHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
                     when(newTab.id){
                         R.id.homePage -> fragmentHome
                         R.id.statisticPage -> fragmentTaskStats
-                        R.id.profilePage -> fragmentProfile
+                        R.id.aboutPage -> fragmentAbout
                         else -> return
                     }
                 )

@@ -61,11 +61,18 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/text_allTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                style="@style/typeTask"
+                android:text="All"
+                />
+            <com.google.android.material.chip.Chip
                 android:id="@+id/text_inBackLog"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 style="@style/typeTask"
-                android:text="back log"
+                android:text="Back log"
                 />
             <com.google.android.material.chip.Chip
                 android:id="@+id/text_inProgress"

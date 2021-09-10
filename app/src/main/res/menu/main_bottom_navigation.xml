@@ -7,7 +7,7 @@
     <item android:id="@+id/statisticPage"
         android:icon="@drawable/ic_statistic_icon"
         android:title="@string/statistic"/>
-    <item android:id="@+id/profilePage"
+    <item android:id="@+id/aboutPage"
         android:icon="@drawable/ic_about_icon"
         android:title="@string/about"/>
 
