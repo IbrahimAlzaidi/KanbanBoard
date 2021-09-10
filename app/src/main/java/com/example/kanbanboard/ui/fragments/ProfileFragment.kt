@@ -12,7 +12,7 @@ class ProfileFragment:BaseFragment<FragmentProfileBinding>() {
 
     override fun setup() {
         binding?.userText?.text.toString()
-        val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksByUser("naufal"))
+        val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksByUser("hi"))
         binding?.taskRecyclerView?.adapter = adapter
     }
 
