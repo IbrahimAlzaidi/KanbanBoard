@@ -74,7 +74,7 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
                 when (listStatus2[position]){
                     listStatus2[0] -> {
-                        db.filterTaskByStats(listStatus2[0])
+                        db.getAllTasksDataSpinner(listStatus2[0])
                         Log.i("MAIN_ACTIVITY","${db.filterTaskByStatsChart("Done")}")
                     }
                     listStatus2[1] -> {}
