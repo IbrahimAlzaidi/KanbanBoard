@@ -111,4 +111,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskDescription" />
 
+    <Spinner
+        android:id="@+id/taskUsers"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:background="@drawable/custom_input"
+        android:elevation="1dp"
+        android:entries="@array/Users"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="48dp"
+        app:layout_constraintStart_toEndOf="@id/taskState"
+        app:layout_constraintTop_toBottomOf="@+id/taskDescription"
+        app:layout_constraintBottom_toBottomOf="@id/taskState"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

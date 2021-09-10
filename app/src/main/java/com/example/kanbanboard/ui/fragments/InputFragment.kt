@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import com.example.kanbanboard.data.DbHelper
 import com.example.kanbanboard.databinding.FragmentInputBinding
+import java.util.*
 import kotlin.random.Random
 
 class InputFragment : BaseFragment<FragmentInputBinding>(){
@@ -26,10 +27,11 @@ class InputFragment : BaseFragment<FragmentInputBinding>(){
             val data = dbHelper.getAllTasksData()
             val title = binding?.textTitle?.text.toString().trim()
             val desc = binding?.taskDescription?.text.toString().trim()
-            val state = binding?.taskState?.selectedItem.toString().trim()
-            val type = binding?.taskType?.selectedItem.toString().trim()
-            val date = SimpleDateFormat("yyyy/MM/dd HH:mm")
-            println("The date is : $date")
+            val state = binding?.taskState?.selectedItem.toString()
+            val type = binding?.taskType?.selectedItem.toString()
+            val user = binding?.taskUsers?.selectedItem.toString()
+            val rawDate = SimpleDateFormat("yyyy/MM/dd HH:mm")
+            val date = Date()
             var flag = false
 
                 if(title.isEmpty()||desc.isEmpty()){
@@ -51,8 +53,7 @@ class InputFragment : BaseFragment<FragmentInputBinding>(){
                     }
                 }
                 if(!flag){
-                    dbHelper.addTask(title,desc,state,type,Random.nextInt(0,100))
-                    dbHelper.addUser(title,Random.nextInt(0,50))
+                    dbHelper.addTask(title,desc,state,type,rawDate.format(date).toString(),user)
                     Toast.makeText(requireContext().applicationContext,"New task is added",
                     Toast.LENGTH_SHORT).show()
                     binding?.textTitle?.text?.clear()

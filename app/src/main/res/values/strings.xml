@@ -21,4 +21,12 @@
         <item>review</item>
     </string-array>
 
+    <string-array name="Users">
+        <item>Ibrahim</item>
+        <item>Noor</item>
+        <item>Rafal</item>
+        <item>Moe</item>
+        <item>Nofel</item>
+        <item>Shahllaa</item>
+    </string-array>
 </resources>
