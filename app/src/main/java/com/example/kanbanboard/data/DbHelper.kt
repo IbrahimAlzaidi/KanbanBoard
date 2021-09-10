@@ -133,7 +133,6 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
             index +=1
         }
         list.add(index)
-        readDataCursor(cursor)
         return list
     } //Done
 

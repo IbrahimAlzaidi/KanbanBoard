@@ -1,14 +1,15 @@
 package com.example.kanbanboard.ui.fragments
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import com.example.kanbanboard.R
 import com.example.kanbanboard.data.DbHelper
 import com.example.kanbanboard.data.DbSchema
 import com.example.kanbanboard.databinding.FragmentTaskBinding
 import com.github.aachartmodel.aainfographics.aachartcreator.*
+import android.widget.ArrayAdapter as ArrayAdapter1
 
 
 class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
@@ -33,8 +34,6 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
 
     override fun setup() {
         db=DbHelper(requireActivity().applicationContext)
-//        db.filterTaskByStatsChart("Done",DbSchema.TASK_STATS,"stats")
-//        db.filterTaskByStatsChart("Done",DbSchema.TASK_TYPE,"task_type")
     }
 
     override fun addCallBack() {
@@ -42,11 +41,11 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
         chart2DataSet(AAChartType.Bar)
         dataSpinner()
     }
+    @SuppressLint("ResourceType")
     private fun dataSpinner(){
-        val spinnerAdapter =
-            context?.let { ArrayAdapter(it,R.layout.support_simple_spinner_dropdown_item,listStatus) }
-        val spinnerAdapter2 =
-            context?.let { ArrayAdapter(it,R.layout.support_simple_spinner_dropdown_item,listStatus2) }
+        val spinnerAdapter = ArrayAdapter1(requireContext().applicationContext,R.layout.support_simple_spinner_dropdown_item,listStatus)
+        val spinnerAdapter2 = ArrayAdapter1(requireContext().applicationContext,R.layout.support_simple_spinner_dropdown_item,listStatus2)
+
         binding?.firstSpinner?.apply {
             adapter = spinnerAdapter
             onClickSpinner()
@@ -71,13 +70,13 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
-
         binding?.secondSpinner?.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
                 when (listStatus2[position]){
-                    listStatus2[0] -> {}
-                    listStatus2[1] -> {}
-                    listStatus2[2] -> {}
+                    listStatus[0] -> {chart2DataSet(AAChartType.Bar)}//yes
+                    listStatus[1] -> {chart2DataSet(AAChartType.Columnrange)}//yes
+                    listStatus[2] -> {chart2DataSet(AAChartType.Line)}
+                    listStatus[3] -> {chart2DataSet(AAChartType.Scatter)}//yes
                 }
             }
 
@@ -95,13 +94,13 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
             .dataLabelsEnabled(false)//show number of array on the items
             .legendEnabled(true)//show the filter point
             .polar(true)//make any chart circular
-            .title("Status")//display title in the chart header
+            .title("")//display title in the chart header
             .zoomType(AAChartZoomType.XY)//like is name
             .tooltipEnabled(true)//when user click in any point in chart is shown square having details for this points
             .xAxisGridLineWidth(1f)//the circular grid line in the chart
             .xAxisLabelsEnabled(false)//display the xAxis text "Values of #Categories"
             .yAxisLabelsEnabled(false)//display the yAxis text "Values"
-            .categories(arrayOf("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"))
+            .categories(arrayOf("Tasks Status :","Tasks Status :","Tasks Status :","Tasks Status :"))
             .series(arrayOf(
                 AASeriesElement()
                     .name("Done")
@@ -125,7 +124,7 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
         aaChartView?.aa_drawChartWithChartModel(aaChartModel)
         aaChartView?.aa_updateChartWithOptions(aaChartModel,true)
 
-    }
+    }//this function provide chart depending on Task Status numbers.
     private fun chart2DataSet(typeOfChart : AAChartType){
         val aaChartView = binding?.paiChartCard2
         val aaChartModel : AAChartModel = AAChartModel()
@@ -134,17 +133,17 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
             .dataLabelsEnabled(false)//show number of array on the items
             .legendEnabled(true)//show the filter point
             .polar(true)//make any chart circular
-            .title("Status")//display title in the chart header
+            .title("")//display title in the chart header
             .zoomType(AAChartZoomType.XY)//like is name
             .tooltipEnabled(true)//when user click in any point in chart is shown square having details for this points
             .xAxisGridLineWidth(1f)//the circular grid line in the chart
-            .xAxisLabelsEnabled(true)//display the xAxis text "Values of #Categories"
+            .xAxisLabelsEnabled(false)//display the xAxis text "Values of #Categories"
             .yAxisLabelsEnabled(false)//display the yAxis text "Values"
-            .categories(arrayOf("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"))
+            .categories(arrayOf("Tasks Type","Tasks Type","Tasks Type","Tasks Type"))
             .series(arrayOf(
                 AASeriesElement()
                     .name("Design")
-                    .color("#689F38")
+                    .color("#3f37c9")
                     .enableMouseTracking(true)
                     .data(db.filterTaskByStatsChart("design",DbSchema.TASK_TYPE,"task_type").toTypedArray()),
                 AASeriesElement()
@@ -159,16 +158,22 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
                     .enableMouseTracking(true),
                 AASeriesElement()
                     .name("Review")
-                    .color("#c62828")
+                    .color("#689F38")
                     .data(db.filterTaskByStatsChart("review",DbSchema.TASK_TYPE,"task_type").toTypedArray())
                     .enableMouseTracking(true),
-            )
-            )
+            )   )
             .animationDuration(3000)
             .animationType(AAChartAnimationType.Bounce)
         aaChartView?.aa_drawChartWithChartModel(aaChartModel)
         aaChartView?.aa_updateChartWithOptions(aaChartModel,true)
 
-    }
+    }//this function provide chart depending on Task Type numbers.
 
+    override fun onStart() {
+        super.onStart()
+        binding?.newTaskNumber?.text = db.filterTaskByStatsChart("in backlog",DbSchema.TASK_STATS,"stats").toString().subSequence(1,2)
+        binding?.finishedTaskNumber?.text = db.filterTaskByStatsChart("Done",DbSchema.TASK_STATS,"stats").toString().subSequence(1,2)
+    }
+    /*this function using to make the textView take last update adding in
+    the DataBase when the user switch between the fragments.*/
 }
