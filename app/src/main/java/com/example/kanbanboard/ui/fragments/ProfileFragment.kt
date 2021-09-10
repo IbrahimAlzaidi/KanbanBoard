@@ -11,7 +11,8 @@ class ProfileFragment:BaseFragment<FragmentProfileBinding>() {
         get() = FragmentProfileBinding::inflate
 
     override fun setup() {
-        val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksData())
+        binding?.userText?.text.toString()
+        val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksByUser("naufal"))
         binding?.taskRecyclerView?.adapter = adapter
     }
 
