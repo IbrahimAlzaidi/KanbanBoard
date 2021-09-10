@@ -115,7 +115,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
     }
 
     @SuppressLint("Range")
-    fun getAllTasksData():MutableList<DbTaskModel>{
+    public fun getAllTasksData():MutableList<DbTaskModel>{
         val tasksList : ArrayList<DbTaskModel> = ArrayList()
         val cursor : Cursor? = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS}",null)
         var idTask : Int ?
