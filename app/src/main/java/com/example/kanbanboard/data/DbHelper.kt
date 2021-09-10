@@ -13,7 +13,6 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
 
 
     override fun onCreate(Db: SQLiteDatabase?) {
-
         val tasksTable = "CREATE TABLE ${DbSchema.TABLE_TASKS} (" +
                 "${DbSchema.TASK_ID} INTEGER PRIMARY KEY," +
                 "${DbSchema.TASK_TITLE} TEXT," +
@@ -50,10 +49,42 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
         readDataCursor(cursor)
     }//Refactor
 
-    fun filterTaskByStats(stats : String) {
-        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} WHERE ${DbSchema.USER_NAME} = ?", arrayOf(stats))
-        readDataCursor(cursor)
-    }//Refactor
+
+    @SuppressLint("Range")
+    fun getAllTasksDataSpinner(status : String):MutableList<DbTaskModel>{
+        val tasksList : ArrayList<DbTaskModel> = ArrayList()
+        val cursor : Cursor? = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} WHERE ${DbSchema.TASK_STATS} = ?", arrayOf(status))
+        var idTask : Int?
+        var titleTask : String?
+        var descTask:String?
+        var statsTask:String?
+        var typeTask:String?
+        var dateTask:String?
+        var userNAME : String?
+        if (cursor != null) {
+            while (cursor.moveToNext()){
+                idTask = cursor.getInt(cursor.getColumnIndex("id"))
+                titleTask = cursor.getString(cursor.getColumnIndex("title"))
+                descTask = cursor.getString(cursor.getColumnIndex("description"))
+                statsTask = cursor.getString(cursor.getColumnIndex("stats"))
+                typeTask = cursor.getString(cursor.getColumnIndex("task_type"))
+                dateTask = cursor.getString(cursor.getColumnIndex("task_date"))
+                userNAME = cursor.getString(cursor.getColumnIndex("user_name"))
+                val std = DbTaskModel(
+                    idTask = idTask,
+                    titleTask = titleTask,
+                    descTask = descTask,
+                    statsTask = statsTask,
+                    typeTask = typeTask,
+                    dateTask = dateTask,
+                    userName = userNAME
+                )
+                tasksList.add(std)
+                Log.i("TASKS", "${std.idTask} + ${std.titleTask} + ${std.descTask} + ${std.statsTask}+ ${std.typeTask}+ ${std.dateTask}+ ${std.userName}")
+            }
+        }
+        return tasksList
+    }
 
     @SuppressLint("Range")
     fun filterTaskByStatsChart(taskType : String) :MutableList<Int>{
@@ -93,7 +124,6 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
         var typeTask:String?
         var dateTask:String?
         var userNAME : String?
-
         if (cursor != null) {
             while (cursor.moveToNext()){
                 idTask = cursor.getInt(cursor.getColumnIndex("id"))
@@ -118,8 +148,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
         }
         return tasksList
     }
-
-    fun addTask(title:String, desc:String, status:String, taskType:String, taskDate:Int,userName:String){
+    fun addTask(title:String, desc:String, status:String, taskType:String, taskDate:String,userName:String){
         val db = this.writableDatabase
         val cv = ContentValues()
         cv.apply {
