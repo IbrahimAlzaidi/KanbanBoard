@@ -14,9 +14,10 @@ import com.example.kanbanboard.data.DbSchema
 import com.example.kanbanboard.databinding.ItemTaskBinding
 import com.example.kanbanboard.model.DbTaskModel
 import com.example.kanbanboard.ui.TaskAdapter
+import com.example.kanbanboard.util.ClickListener
 
 
-class HomeFragment:BaseFragment<FragmentHomeBinding>() {
+class HomeFragment:BaseFragment<FragmentHomeBinding>(),ClickListener {
     private  var item_task :ItemTaskBinding? = null
 
     override val LOG_TAG: String = "Home Fragment"
@@ -25,12 +26,13 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     val profileFragment = ProfileFragment()
     val inputFragment = InputFragment()
      var dbHelper:DbHelper? = null
+    val adapter= binding?.recyclerView?.adapter
 
     override fun setup() {
        getSpinner()
        setupSearchView()
         setupRecycleView()
-        displayProfileFragment()
+        //displayProfileFragment()
         getChipsFiltered()
 
 
@@ -43,11 +45,11 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
 
     private fun getChipsFiltered() {
         binding?.textInProgress?.setOnClickListener {
-            val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksDataSpinner("in progress"))
+            val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksDataSpinner("in progress"),this)
             binding!!.recyclerView.adapter = adapter
         }
         binding?.textDone?.setOnClickListener {
-            val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksDataSpinner("Done"))
+            val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksDataSpinner("Done"),this)
             binding!!.recyclerView.adapter = adapter
         }
         binding?.textInBackLog?.setOnClickListener {
@@ -55,7 +57,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun displayProfileFragment() {
+  /*  private fun displayProfileFragment() {
         item_task?.userText
             ?.setOnClickListener {
             val transaction = activity?.supportFragmentManager!!.beginTransaction()
@@ -64,10 +66,10 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
                 .commit()
         }
 
-    }
+    }*/
 
     private fun setupRecycleView() {
-        val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksData())
+        val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksData(),this)
         binding!!.recyclerView.adapter = adapter
     }
 
@@ -86,7 +88,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     }
     private fun getSearch(newText:String): Boolean {
         binding?.recyclerView.apply {
-            val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksTitle(newText))
+            val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksTitle(newText),this@HomeFragment)
             binding!!.recyclerView.adapter = adapter
             Log.v("title","${ dbHelper?.getAllTasksTitle(newText)}\n" )
         }
@@ -109,4 +111,17 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
             transaction?.commit()
         }
       }
+
+    override fun onUserPhotoClick(position: Int) {
+        position
+        when(position){
+            0-> {val transaction = activity?.supportFragmentManager!!.beginTransaction()
+                .add(R.id.container,profileFragment)
+                .addToBackStack(null)
+                .commit()
+                adapter?.notifyItemChanged(position)
+            }
+        }
+
     }
+}

@@ -11,9 +11,11 @@ import com.example.kanbanboard.R
 import com.example.kanbanboard.data.DbHelper
 import com.example.kanbanboard.databinding.ItemTaskBinding
 import com.example.kanbanboard.model.DbTaskModel
+import com.example.kanbanboard.util.ClickListener
 import org.w3c.dom.Text
+import java.security.PrivateKey
 
-class TaskAdapter(private val list:MutableList <DbTaskModel>):RecyclerView.Adapter<TaskAdapter.TaskViewHolder>()
+class TaskAdapter(private val list:MutableList <DbTaskModel>, val listener:ClickListener):RecyclerView.Adapter<TaskAdapter.TaskViewHolder>()
 {
 val dbHelper:DbHelper? = null
 
@@ -34,8 +36,20 @@ val dbHelper:DbHelper? = null
     }
 
     override fun getItemCount() = list.size
-    class TaskViewHolder(viewItem : View):RecyclerView.ViewHolder(viewItem) {
+   inner  class TaskViewHolder(viewItem : View):RecyclerView.ViewHolder(viewItem),View.OnClickListener {
         val binding = ItemTaskBinding.bind(viewItem)
+       val userPhoto = binding.userText
+        init {
+            userPhoto.setOnClickListener(){
+            listener.onUserPhotoClick(position =0)
+            }
+        }
+        override fun onClick(view: View?) {
+            val position = absoluteAdapterPosition
+            if (position !=RecyclerView.NO_POSITION){
+                listener.onUserPhotoClick(position)
+            }
+        }
 
     }
 }
