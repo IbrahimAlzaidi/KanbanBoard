@@ -37,13 +37,15 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
 
     private fun getChipsFiltered() {
         binding?.textInProgress?.setOnClickListener {
-            dbHelper?.filterTaskByStats("in progress")
+            val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksDataSpinner("in progress"))
+            binding!!.recyclerView.adapter = adapter
         }
         binding?.textDone?.setOnClickListener {
-            dbHelper?.filterTaskByStats("Done")
+            val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksDataSpinner("Done"))
+            binding!!.recyclerView.adapter = adapter
         }
         binding?.textInBackLog?.setOnClickListener {
-            dbHelper?.filterTaskByStats("in backlog")
+           setupRecycleView()
         }
     }
 
