@@ -4,6 +4,7 @@ package com.example.kanbanboard.ui.fragments
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.util.Log
 import android.view.LayoutInflater
 import com.example.kanbanboard.databinding.FragmentHomeBinding
 import android.widget.ArrayAdapter
@@ -68,14 +69,24 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     @SuppressLint("ResourceAsColor")
     private fun setupSearchView() {
         binding!!.apply {
-//            searchBar.setOnQueryTextListener(object :
-//                androidx.appcompat.widget.SearchView.OnQueryTextListener {
-//                //click search icon in keyboard
-//                override fun onQueryTextSubmit(query: String) = TODO("IMPLEMENT LATER")
-//                override fun onQueryTextChange(newText: String?) = TODO("IMPLEMENT LATER")
-//            })
+           searchBar.setOnQueryTextListener(object :
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                //click search icon in keyboard
+                override fun onQueryTextSubmit(query: String) = false
+               override fun onQueryTextChange(newText: String?) = getSearch(newText!!)
+
+           })
             searchBar.queryHint = "Search..."
         }
+    }
+    private fun getSearch(newText:String): Boolean {
+        binding?.recyclerView.apply {
+            val adapter = TaskAdapter(DbHelper(requireContext()).getAllTasksTitle(newText))
+            binding!!.recyclerView.adapter = adapter
+            Log.v("title","${ dbHelper?.getAllTasksTitle(newText)}\n" )
+        }
+        return false
+
     }
 
     private fun getSpinner(){
