@@ -49,10 +49,48 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
     }//Refactor
 
 
+
+
     @SuppressLint("Range")
     fun getAllTasksDataSpinner(status : String):MutableList<DbTaskModel>{
         val tasksList : ArrayList<DbTaskModel> = ArrayList()
         val cursor : Cursor? = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} WHERE ${DbSchema.TASK_STATS} = ?", arrayOf(status))
+        var idTask : Int?
+        var titleTask : String?
+        var descTask:String?
+        var statsTask:String?
+        var typeTask:String?
+        var dateTask:String?
+        var userNAME : String?
+        if (cursor != null) {
+            while (cursor.moveToNext()){
+                idTask = cursor.getInt(cursor.getColumnIndex("id"))
+                titleTask = cursor.getString(cursor.getColumnIndex("title"))
+                descTask = cursor.getString(cursor.getColumnIndex("description"))
+                statsTask = cursor.getString(cursor.getColumnIndex("stats"))
+                typeTask = cursor.getString(cursor.getColumnIndex("task_type"))
+                dateTask = cursor.getString(cursor.getColumnIndex("task_date"))
+                userNAME = cursor.getString(cursor.getColumnIndex("user_name"))
+                val std = DbTaskModel(
+                    idTask = idTask,
+                    titleTask = titleTask,
+                    descTask = descTask,
+                    statsTask = statsTask,
+                    typeTask = typeTask,
+                    dateTask = dateTask,
+                    userName = userNAME
+                )
+                tasksList.add(std)
+                Log.i("TASKS", "${std.idTask} + ${std.titleTask} + ${std.descTask} + ${std.statsTask}+ ${std.typeTask}+ ${std.dateTask}+ ${std.userName}")
+            }
+        }
+        return tasksList
+    }
+
+    @SuppressLint("Range")
+    fun getAllTasksByUser(userName : String):MutableList<DbTaskModel>{
+        val tasksList : ArrayList<DbTaskModel> = ArrayList()
+        val cursor : Cursor? = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} WHERE ${DbSchema.USER_NAME} = ?", arrayOf(userName))
         var idTask : Int?
         var titleTask : String?
         var descTask:String?
