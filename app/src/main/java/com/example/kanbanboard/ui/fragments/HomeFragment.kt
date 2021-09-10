@@ -2,33 +2,53 @@ package com.example.kanbanboard.ui.fragments
 
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.view.LayoutInflater
-import com.example.kanbanboard.databinding.FragmentHomeBinding
 import android.widget.ArrayAdapter
 import com.example.kanbanboard.R
 import com.example.kanbanboard.data.DbHelper
-import com.example.kanbanboard.data.DbSchema
+import com.example.kanbanboard.databinding.FragmentHomeBinding
 import com.example.kanbanboard.databinding.ItemTaskBinding
-import com.example.kanbanboard.model.DbTaskModel
 import com.example.kanbanboard.ui.TaskAdapter
 
 
 class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     private  var item_task :ItemTaskBinding? = null
-
     override val LOG_TAG: String = "Home Fragment"
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
-
-    val inputFragment = InputFragment()
+    private val profileFragment = ProfileFragment()
+    private val inputFragment = InputFragment()
+    var dbHelper:DbHelper? = null
 
     override fun setup() {
        getSpinner()
        setupSearchView()
-        setupRecycleView()
+       setupRecycleView()
+       displayProfileFragment()
+       getChipsFiltered()
 
+
+    }
+
+    private fun getChipsFiltered() {
+        binding?.textTodo?.setOnClickListener {
+        }
+        binding?.textInProgress?.setOnClickListener {
+        }
+        binding?.textDone?.setOnClickListener {
+        }
+        binding?.textInBackLog?.setOnClickListener {
+        }
+    }
+
+    private fun displayProfileFragment() {
+        item_task?.userText
+            ?.setOnClickListener {
+            val transaction = activity?.supportFragmentManager!!.beginTransaction()
+                .add(R.id.container,profileFragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun setupRecycleView() {

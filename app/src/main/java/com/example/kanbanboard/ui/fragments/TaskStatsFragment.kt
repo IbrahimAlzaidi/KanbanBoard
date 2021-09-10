@@ -1,13 +1,12 @@
 package com.example.kanbanboard.ui.fragments
 
-import android.icu.text.Transliterator
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.example.kanbanboard.R
 import com.example.kanbanboard.data.DbHelper
+import com.example.kanbanboard.data.DbSchema
 import com.example.kanbanboard.databinding.FragmentTaskBinding
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 
@@ -16,14 +15,15 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
 
     val listStatus = arrayListOf(
         "Bar" ,
-        "Columnrange" ,
+        "Columnar" ,
         "Line",
         "Scatter" ,
     )
     val listStatus2 = arrayListOf(
-        "Done",
-        "In Progress",
-        "Block"
+        "Bar" ,
+        "Columnar" ,
+        "Line",
+        "Scatter" ,
     )
 
     lateinit var db : DbHelper
@@ -33,7 +33,8 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
 
     override fun setup() {
         db=DbHelper(requireActivity().applicationContext)
-        db.filterTaskByStatsChart("Done")
+//        db.filterTaskByStatsChart("Done",DbSchema.TASK_STATS,"stats")
+//        db.filterTaskByStatsChart("Done",DbSchema.TASK_TYPE,"task_type")
     }
 
     override fun addCallBack() {
@@ -74,10 +75,7 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
         binding?.secondSpinner?.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
                 when (listStatus2[position]){
-                    listStatus2[0] -> {
-                        db.filterTaskByStats(listStatus2[0])
-                        Log.i("MAIN_ACTIVITY","${db.filterTaskByStatsChart("Done")}")
-                    }
+                    listStatus2[0] -> {}
                     listStatus2[1] -> {}
                     listStatus2[2] -> {}
                 }
@@ -109,16 +107,16 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
                     .name("Done")
                     .color("#689F38")
                     .enableMouseTracking(true)
-                    .data(db.filterTaskByStatsChart("Done").toTypedArray()),
+                    .data(db.filterTaskByStatsChart("Done",DbSchema.TASK_STATS,"stats").toTypedArray()),
                 AASeriesElement()
-                    .name("In Progress")
+                    .name("in progress")
                     .color("#FFD10F")
                     .enableMouseTracking(true)
-                    .data(db.filterTaskByStatsChart("In Progress").toTypedArray()),
+                    .data(db.filterTaskByStatsChart("in progress",DbSchema.TASK_STATS,"stats").toTypedArray()),
                 AASeriesElement()
-                    .name("Block")
+                    .name("in backlog")
                     .color("#c62828")
-                    .data(db.filterTaskByStatsChart("Block").toTypedArray())
+                    .data(db.filterTaskByStatsChart("in backlog",DbSchema.TASK_STATS,"stats").toTypedArray())
                     .enableMouseTracking(true),
             )
             )
@@ -145,19 +143,24 @@ class TaskStatsFragment:BaseFragment<FragmentTaskBinding>() {
             .categories(arrayOf("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"))
             .series(arrayOf(
                 AASeriesElement()
-                    .name("Done")
+                    .name("Design")
                     .color("#689F38")
                     .enableMouseTracking(true)
-                    .data(arrayOf(4,2,1,4,5,6,9,7)),
+                    .data(db.filterTaskByStatsChart("design",DbSchema.TASK_TYPE,"task_type").toTypedArray()),
                 AASeriesElement()
-                    .name("In Progress")
+                    .name("Implement")
                     .color("#FFD10F")
                     .enableMouseTracking(true)
-                    .data(arrayOf(4,1,3,4,2,1,4,1)),
+                    .data(db.filterTaskByStatsChart("implement",DbSchema.TASK_TYPE,"task_type").toTypedArray()),
                 AASeriesElement()
-                    .name("Block")
+                    .name("Debug")
                     .color("#c62828")
-                    .data(arrayOf(1,0,0,3,2,1,1,0))
+                    .data(db.filterTaskByStatsChart("debug",DbSchema.TASK_TYPE,"task_type").toTypedArray())
+                    .enableMouseTracking(true),
+                AASeriesElement()
+                    .name("Review")
+                    .color("#c62828")
+                    .data(db.filterTaskByStatsChart("review",DbSchema.TASK_TYPE,"task_type").toTypedArray())
                     .enableMouseTracking(true),
             )
             )

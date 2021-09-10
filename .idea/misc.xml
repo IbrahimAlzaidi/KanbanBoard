@@ -8,10 +8,14 @@
         <entry key="..\:/AndroidProjectsTut/KanbanBoard/app/src/main/res/layout/fragment_home.xml" value="0.2105978260869565" />
         <entry key="..\:/AndroidProjectsTut/KanbanBoard/app/src/main/res/layout/fragment_profile.xml" value="0.2105978260869565" />
         <entry key="..\:/AndroidProjectsTut/KanbanBoard/app/src/main/res/layout/fragment_task.xml" value="0.1" />
+        <entry key="..\:/Users/musli/StudioProjects/KanbanBoard/app/src/main/res/drawable/recycler_shape.xml" value="0.21770833333333334" />
         <entry key="..\:/Users/musli/StudioProjects/KanbanBoard/app/src/main/res/drawable/viewshape.xml" value="0.146875" />
         <entry key="..\:/Users/musli/StudioProjects/KanbanBoard/app/src/main/res/layout/activity_home.xml" value="0.22" />
-        <entry key="..\:/Users/musli/StudioProjects/KanbanBoard/app/src/main/res/layout/fragment_home.xml" value="0.1361111111111111" />
+        <entry key="..\:/Users/musli/StudioProjects/KanbanBoard/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/musli/StudioProjects/KanbanBoard/app/src/main/res/layout/fragment_input.xml" value="0.2015625" />
+        <entry key="..\:/Users/musli/StudioProjects/KanbanBoard/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="..\:/Users/musli/StudioProjects/KanbanBoard/app/src/main/res/layout/fragment_task.xml" value="0.12" />
+        <entry key="..\:/Users/musli/StudioProjects/KanbanBoard/app/src/main/res/layout/item_task.xml" value="0.33" />
         <entry key="..\:/Users/musli/StudioProjects/KanbanBoard/app/src/main/res/menu/main_bottom_navigation.xml" value="0.20416666666666666" />
       </map>
     </option>
