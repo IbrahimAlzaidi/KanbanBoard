@@ -2,13 +2,11 @@ package com.example.kanbanboard.ui.fragments
 
 import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import com.example.kanbanboard.data.DbHelper
 import com.example.kanbanboard.databinding.FragmentInputBinding
 import java.util.*
-import kotlin.random.Random
 
 class InputFragment : BaseFragment<FragmentInputBinding>(){
     override val LOG_TAG: String

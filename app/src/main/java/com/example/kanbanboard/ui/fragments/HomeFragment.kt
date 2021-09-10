@@ -19,7 +19,6 @@ import com.example.kanbanboard.util.ClickListener
 
 class HomeFragment:BaseFragment<FragmentHomeBinding>(),ClickListener {
     private  var item_task :ItemTaskBinding? = null
-
     override val LOG_TAG: String = "Home Fragment"
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
@@ -57,7 +56,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>(),ClickListener {
         }
     }
 
-  /*  private fun displayProfileFragment() {
+    private fun displayProfileFragment() {
         item_task?.userText
             ?.setOnClickListener {
             val transaction = activity?.supportFragmentManager!!.beginTransaction()
@@ -124,4 +123,3 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>(),ClickListener {
         }
 
     }
-}
