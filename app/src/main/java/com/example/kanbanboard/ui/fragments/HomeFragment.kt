@@ -45,7 +45,7 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
             binding!!.recyclerView.adapter = adapter
         }
         binding?.textInBackLog?.setOnClickListener {
-           setupRecycleView()
+            setupRecycleView()
         }
     }
 
