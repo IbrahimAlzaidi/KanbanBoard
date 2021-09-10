@@ -16,6 +16,7 @@ class ProfileFragment:BaseFragment<FragmentProfileBinding>() {
     override fun setup() {
         binding?.textDaily?.text = daily
         binding?.textWeekly?.text = weekly
+        binding?.userTextImage?.text = binding?.textUserName?.text.toString().subSequence(0,2)
         val adapter = TaskAdapterProfile(DbHelper(requireContext()).getAllTasksByUser(binding?.textUserName?.text.toString()))
         binding?.taskRecyclerView?.adapter = adapter
     }
