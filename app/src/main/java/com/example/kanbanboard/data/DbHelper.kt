@@ -148,6 +148,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
         }
         return tasksList
     }
+
     fun addTask(title:String, desc:String, status:String, taskType:String, taskDate:String,userName:String){
         val db = this.writableDatabase
         val cv = ContentValues()
