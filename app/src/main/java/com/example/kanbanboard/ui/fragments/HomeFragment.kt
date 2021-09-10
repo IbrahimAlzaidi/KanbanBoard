@@ -13,7 +13,6 @@ import com.example.kanbanboard.ui.TaskAdapter
 
 class HomeFragment:BaseFragment<FragmentHomeBinding>() {
     private  var item_task :ItemTaskBinding? = null
-
     override val LOG_TAG: String = "Home Fragment"
     override val bindingInflater: (LayoutInflater) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
@@ -33,16 +32,12 @@ class HomeFragment:BaseFragment<FragmentHomeBinding>() {
 
     private fun getChipsFiltered() {
         binding?.textTodo?.setOnClickListener {
-            dbHelper?.filterTaskByStats("To Do")
         }
         binding?.textInProgress?.setOnClickListener {
-            dbHelper?.filterTaskByStats("in progress")
         }
         binding?.textDone?.setOnClickListener {
-            dbHelper?.filterTaskByStats("Done")
         }
         binding?.textInBackLog?.setOnClickListener {
-            dbHelper?.filterTaskByStats("in backlog")
         }
     }
 

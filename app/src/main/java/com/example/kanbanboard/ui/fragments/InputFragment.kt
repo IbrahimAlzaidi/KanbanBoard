@@ -2,13 +2,11 @@ package com.example.kanbanboard.ui.fragments
 
 import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import com.example.kanbanboard.data.DbHelper
 import com.example.kanbanboard.databinding.FragmentInputBinding
 import java.util.*
-import kotlin.random.Random
 
 class InputFragment : BaseFragment<FragmentInputBinding>(){
     override val LOG_TAG: String
@@ -32,9 +30,8 @@ class InputFragment : BaseFragment<FragmentInputBinding>(){
             val user = binding?.taskUsers?.selectedItem.toString()
             val rawDate = SimpleDateFormat("yyyy/MM/dd HH:mm")
             val date = Date()
-            var flag = false
-
-                if(title.isEmpty()||desc.isEmpty()){
+            var flag: Boolean
+            if(title.isEmpty()||desc.isEmpty()){
                     Toast.makeText(requireActivity().applicationContext,
                         "The Column title couldn't be empty",Toast.LENGTH_LONG).show()
                     flag = true

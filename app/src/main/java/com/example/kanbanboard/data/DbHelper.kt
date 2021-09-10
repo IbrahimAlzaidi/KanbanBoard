@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.example.kanbanboard.model.DbTaskModel
-
 class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSION) {
 
 
@@ -87,12 +86,12 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context,DBNAME,null,DBVERSIO
     }
 
     @SuppressLint("Range")
-    fun filterTaskByStatsChart(taskType : String) :MutableList<Int>{
+    fun filterTaskByStatsChart(taskStatus: String, typeOfFilter: String, filterColumn:String) :MutableList<Int>{
         val list : MutableList<Int> = ArrayList()
-        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} WHERE ${DbSchema.USER_NAME} = ?", arrayOf(taskType))
+        val cursor = readableDatabase.rawQuery("SELECT * FROM ${DbSchema.TABLE_TASKS} WHERE $typeOfFilter = ?", arrayOf(taskStatus))
         var index = 0
         while (cursor.moveToNext()){
-            cursor.getInt(cursor.getColumnIndex("task_type"))
+            cursor.getInt(cursor.getColumnIndex(filterColumn))
             index +=1
         }
         list.add(index)
