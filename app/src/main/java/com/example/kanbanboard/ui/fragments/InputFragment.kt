@@ -2,11 +2,13 @@ package com.example.kanbanboard.ui.fragments
 
 import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import com.example.kanbanboard.data.DbHelper
 import com.example.kanbanboard.databinding.FragmentInputBinding
 import java.util.*
+import kotlin.random.Random
 
 class InputFragment : BaseFragment<FragmentInputBinding>(){
     override val LOG_TAG: String
@@ -30,32 +32,33 @@ class InputFragment : BaseFragment<FragmentInputBinding>(){
             val user = binding?.taskUsers?.selectedItem.toString()
             val rawDate = SimpleDateFormat("yyyy/MM/dd HH:mm")
             val date = Date()
-            var flag: Boolean
+            var flag = false
+
             if(title.isEmpty()||desc.isEmpty()){
-                    Toast.makeText(requireActivity().applicationContext,
-                        "The Column title couldn't be empty",Toast.LENGTH_LONG).show()
-                    flag = true
-                }
-                else  {
-                    flag = false
-                    for (i in 0 until data.size) {
-                        if (title == data[i].titleTask || desc == data[i].descTask) {
-                            Toast.makeText(
-                                requireActivity().applicationContext,
-                                "This Task is Already Existing", Toast.LENGTH_LONG
-                            ).show()
-                            flag = true
-                            break
-                        }
+                Toast.makeText(requireActivity().applicationContext,
+                    "The Column title couldn't be empty",Toast.LENGTH_LONG).show()
+                flag = true
+            }
+            else  {
+                flag = false
+                for (i in 0 until data.size) {
+                    if (title == data[i].titleTask || desc == data[i].descTask) {
+                        Toast.makeText(
+                            requireActivity().applicationContext,
+                            "This Task is Already Existing", Toast.LENGTH_LONG
+                        ).show()
+                        flag = true
+                        break
                     }
                 }
-                if(!flag){
-                    dbHelper.addTask(title,desc,state,type,rawDate.format(date).toString(),user)
-                    Toast.makeText(requireContext().applicationContext,"New task is added",
+            }
+            if(!flag){
+                dbHelper.addTask(title,desc,state,type,rawDate.format(date).toString(),user)
+                Toast.makeText(requireContext().applicationContext,"New task is added",
                     Toast.LENGTH_SHORT).show()
-                    binding?.textTitle?.text?.clear()
-                    binding?.taskDescription?.text?.clear()
-                }
+                binding?.textTitle?.text?.clear()
+                binding?.taskDescription?.text?.clear()
+            }
         }
     }
 }

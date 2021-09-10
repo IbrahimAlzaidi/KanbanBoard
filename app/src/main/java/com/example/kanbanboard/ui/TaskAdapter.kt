@@ -1,16 +1,23 @@
 package com.example.kanbanboard.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kanbanboard.R
+import com.example.kanbanboard.data.DbHelper
 import com.example.kanbanboard.databinding.ItemTaskBinding
 import com.example.kanbanboard.model.DbTaskModel
+import com.example.kanbanboard.util.ClickListener
+import org.w3c.dom.Text
+import java.security.PrivateKey
 
-class TaskAdapter(private val list:MutableList <DbTaskModel>):RecyclerView.Adapter<TaskAdapter.TaskViewHolder>()
+class TaskAdapter(private val list:MutableList <DbTaskModel>, val listener:ClickListener):RecyclerView.Adapter<TaskAdapter.TaskViewHolder>()
 {
-
+val dbHelper:DbHelper? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_task,parent,false)
@@ -18,17 +25,31 @@ class TaskAdapter(private val list:MutableList <DbTaskModel>):RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val  currentPosition = list[position]
+        val currentPosition = list[position]
         holder.binding.apply {
-            textTaskTitle.text =currentPosition.titleTask
+            textTaskTitle.text = currentPosition.titleTask
             textTaskDescription.text = currentPosition.descTask
             taskStatus.text = currentPosition.statsTask
+            userText.text = currentPosition.userName.subSequence(0,2)
+            taskDate.text=currentPosition.dateTask
         }
     }
 
     override fun getItemCount() = list.size
-    class TaskViewHolder(viewItem : View):RecyclerView.ViewHolder(viewItem) {
+   inner  class TaskViewHolder(viewItem : View):RecyclerView.ViewHolder(viewItem),View.OnClickListener {
         val binding = ItemTaskBinding.bind(viewItem)
+       val userPhoto = binding.userText
+        init {
+            userPhoto.setOnClickListener(){
+            listener.onUserPhotoClick(position =0)
+            }
+        }
+        override fun onClick(view: View?) {
+            val position = absoluteAdapterPosition
+            if (position !=RecyclerView.NO_POSITION){
+                listener.onUserPhotoClick(position)
+            }
+        }
 
     }
 }
